@@ -1,0 +1,235 @@
+
+05_class:
+
+-- Table: public.class
+
+-- DROP TABLE public.class;
+
+CREATE TABLE public.class
+(
+    class_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    title character(20) COLLATE pg_catalog."default" NOT NULL,
+    course_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    currently_offered character(20) COLLATE pg_catalog."default" NOT NULL,
+    next_offered character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT class_pkey PRIMARY KEY (class_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.class
+    OWNER to postgres;
+
+
+01_student:
+
+-- Table: public.student
+
+-- DROP TABLE public.student;
+
+CREATE TABLE public.student
+(
+    SSN integer NOT NULL,
+    student_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    FIRSTNAME character(20) COLLATE pg_catalog."default" NOT NULL,
+    MIDDLENAME character(20) COLLATE pg_catalog."default",
+    LASTNAME character(20) COLLATE pg_catalog."default" NOT NULL,
+    enroll_status character(20) COLLATE pg_catalog."default" NOT NULL,
+    RESIDENCY character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT student_pkey PRIMARY KEY (student_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.student
+    OWNER to postgres;
+
+
+
+
+
+02_course:
+
+-- Table: public.course
+
+-- DROP TABLE public.course;
+
+CREATE TABLE public.course
+(
+    course_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    course_number character(20) COLLATE pg_catalog."default" NOT NULL,
+    require_consent character(20) COLLATE pg_catalog."default" NOT NULL,
+    lab_required character(20) COLLATE pg_catalog."default" NOT NULL,
+    department_id integer NOT NULL,
+	CONSTRAINT course_pkey PRIMARY KEY (course_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.course
+    OWNER to postgres;
+
+
+03_course_enrollment:
+
+-- Table: public.course_enrollment
+
+-- DROP TABLE public.course_enrollment;
+
+CREATE TABLE public.course_enrollment
+(
+    student_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    course_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    section_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    units integer NOT NULL,
+    grading_option character(20) COLLATE pg_catalog."default" NOT NULL,
+    quarter character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT course_enrollment_pkey PRIMARY KEY (student_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.course_enrollment
+    OWNER to postgres;
+
+04_faculty:
+
+-- Table: public.faculty
+
+-- DROP TABLE public.faculty;
+
+CREATE TABLE public.faculty
+(
+    faculty_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    title character(20) COLLATE pg_catalog."default" NOT NULL,
+    faculty_name character(20) COLLATE pg_catalog."default" NOT NULL,
+    department_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT faculty_pkey PRIMARY KEY (faculty_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.faculty
+    OWNER to postgres;
+    
+06_classes_taken_in_the_past:
+
+-- Table: public.classes_taken_in_the_past
+
+-- DROP TABLE public.classes_taken_in_the_past;
+
+CREATE TABLE public.classes_taken_in_the_past
+(
+    student_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    course_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    quarter character(20) COLLATE pg_catalog."default" NOT NULL,
+    grading_option character(20) COLLATE pg_catalog."default" NOT NULL,
+    units integer NOT NULL, 
+    grade character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT classes_taken_in_the_past_pkey PRIMARY KEY (student_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.classes_taken_in_the_past
+    OWNER to postgres;
+
+
+
+07_thesis_committee:
+
+-- Table: public.thesis_committee
+
+-- DROP TABLE public.thesis_committee;
+
+CREATE TABLE public.thesis_committee
+(
+    student_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    faculty_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT thesis_committee_pkey PRIMARY KEY (student_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.thesis_committee
+    OWNER to postgres;
+
+
+
+08_probation_info:
+
+-- Table: public.probation_info
+
+-- DROP TABLE public.probation_info;
+
+CREATE TABLE public.probation_info
+(
+    student_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    ptime character(20) COLLATE pg_catalog."default" NOT NULL,
+    preason character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT probation_info_pkey PRIMARY KEY (student_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.probation_info
+    OWNER to postgres;
+
+
+09_review_session:
+
+-- Table: public.review_session
+
+-- DROP TABLE public.review_session;
+
+CREATE TABLE public.review_session
+(
+    class_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    rtime character(20) COLLATE pg_catalog."default" NOT NULL,
+    rdate character(20) COLLATE pg_catalog."default" NOT NULL,
+    rlocation character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT review_session_pkey PRIMARY KEY (class_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.review_session
+    OWNER to postgres;
+
+10_degree_requirements:
+
+-- Table: public.degree_requirements
+
+-- DROP TABLE public.degree_requirements;
+
+CREATE TABLE public.degree_requirements
+(
+    degree_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    unit integer NOT NULL,
+    department_id integer NOT NULL,
+    cur_degree character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT degree_requirements_pkey PRIMARY KEY (degree_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.degree_requirements
+    OWNER to postgres;
+
+11_department:
+
+-- Table: public.department
+
+-- DROP TABLE public.department;
+
+CREATE TABLE public.department
+(
+    department_id character(20) COLLATE pg_catalog."default" NOT NULL,
+    department_name character(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT department_pkey PRIMARY KEY (department_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.department
+    OWNER to postgres;
